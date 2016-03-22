@@ -13,6 +13,7 @@ import tutorial.rest.resources.BlogEntryResource;
 import tutorial.rest.resources.asm.BlogEntryResourceAsm;
 
 @Controller
+@RequestMapping("/rest/blog-entries")
 public class BlogEntryController {
 
     private BlogEntryService blogEntryService;
@@ -21,11 +22,17 @@ public class BlogEntryController {
         this.blogEntryService = blogEntryService;
     }
 
-    @RequestMapping(value = "/rest/blog-entries/{blogEntryId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{blogEntryId}", method = RequestMethod.GET)
     public ResponseEntity <BlogEntryResource> getBlogEntry(
         @PathVariable Long blogEntryId){
         BlogEntry blogEntry = blogEntryService.find(blogEntryId);
-        BlogEntryResource blogEntryResource = new BlogEntryResourceAsm().toResource(blogEntry);
-        return new ResponseEntity<BlogEntryResource>(blogEntryResource, HttpStatus.OK);
+        if (blogEntry != null) {
+            BlogEntryResource blogEntryResource = new BlogEntryResourceAsm().toResource(blogEntry);
+//            return new ResponseEntity<BlogEntryResource>(blogEntryResource, HttpStatus.OK);
+            return new ResponseEntity<>(blogEntryResource, HttpStatus.OK);
+        } else {
+//            return new ResponseEntity<BlogEntryResource>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

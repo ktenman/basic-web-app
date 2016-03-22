@@ -45,8 +45,18 @@ public class BlogEntryControllerTest {
         mockMvc.perform(get("/rest/blog-entries/1"))
                 .andExpect(jsonPath("$.title", is(blogEntry.getTitle())))
                 .andExpect(jsonPath("$.links[*].href", hasItem(endsWith("/blog-entries/1"))))
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(status().isOk());
+//                .andDo(print());
+    }
+
+    @Test
+    public void getNonExistingBlogEntry() throws Exception {
+
+        when(blogEntryService.find(1L)).thenReturn(null);
+
+        mockMvc.perform(get("/rest/blog-entries/1"))
+                .andExpect(status().isNotFound());
+//                .andDo(print());
     }
 
 }
