@@ -14,6 +14,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,7 +45,8 @@ public class BlogEntryControllerTest {
         mockMvc.perform(get("/rest/blog-entries/1"))
                 .andExpect(jsonPath("$.title", is(blogEntry.getTitle())))
                 .andExpect(jsonPath("$.links[*].href", hasItem(endsWith("/blog-entries/1"))))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
 }
