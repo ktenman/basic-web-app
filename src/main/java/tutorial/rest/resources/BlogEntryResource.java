@@ -15,8 +15,15 @@ public class BlogEntryResource extends ResourceSupport {
     }
 
     public BlogEntry toBlogEntry() {
-        BlogEntry entry = new BlogEntry();
-        entry.setTitle(title);
-        return entry;
+        BlogEntry blogEntry = new BlogEntry();
+        blogEntry.setTitle(title);
+        return blogEntry;
+    }
+
+    @Override
+    public String toString() {
+        return "BlogEntryResource{" +
+                "title='" + title + '\'' +
+                '}';
     }
 }
