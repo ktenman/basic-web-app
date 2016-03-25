@@ -1,9 +1,10 @@
 package tutorial.rest.resources;
 
 import org.springframework.hateoas.ResourceSupport;
-import tutorial.core.models.entities.BlogEntry;
+import tutorial.core.models.entities.Blog;
 
-public class BlogEntryResource extends ResourceSupport {
+public class BlogResource extends ResourceSupport {
+
     private String title;
 
     public String getTitle() {
@@ -14,9 +15,9 @@ public class BlogEntryResource extends ResourceSupport {
         this.title = title;
     }
 
-    public BlogEntry toBlogEntry() {
-        BlogEntry entry = new BlogEntry();
-        entry.setTitle(title);
-        return entry;
+    public Blog toBlog() {
+        Blog blog = new Blog();
+        blog.setTitle(title);
+        return blog;
     }
 }
